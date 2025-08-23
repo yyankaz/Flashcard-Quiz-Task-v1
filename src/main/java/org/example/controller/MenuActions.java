@@ -22,7 +22,6 @@ public class MenuActions {
 
     public void startQuiz() throws SQLException {
         var deck = deckService.chooseDeck();
-        //if (deck == null) return;
         quizService.study(deck);
     }
 

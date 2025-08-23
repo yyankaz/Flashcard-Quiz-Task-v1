@@ -39,7 +39,7 @@ public class Utils {
                     System.out.println("Діапазон: " + min + "..." + max);
                 } else return v;
             } catch (NumberFormatException e) {
-                System.out.println("Введи число, будь ласка.");
+                System.out.println("Будь ласка, введіть число:");
                 System.out.print("> ");
             }
         }
@@ -53,7 +53,7 @@ public class Utils {
             try {
                 return Integer.parseInt(s);
             } catch (NumberFormatException e) {
-                System.out.println("Введи число, будь ласка.");
+                System.out.println("Будь ласка, введіть число:");
                 System.out.print("> ");
             }
         }

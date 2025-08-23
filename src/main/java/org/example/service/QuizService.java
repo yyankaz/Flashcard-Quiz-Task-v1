@@ -6,9 +6,8 @@ import org.example.entity.Deck;
 import org.example.entity.Question;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class QuizService {
 
@@ -20,23 +19,40 @@ public class QuizService {
 
     public void study(Deck deck) throws SQLException {
         List<Question> questions = questionDAO.getQuestionsByBoardId(deck.getId());
-        int mark = 0;
-        double mark100;
         System.out.println("Ви обрали колоду " + deck.getTitle() + ". " +
                 "\nНаразі вона складається з " + questions.size() + " запитань. \n");
+        List<String> answers = getAnswers(questions);
+        int mark = getMark(questions, answers);
+        double mark_100 = getMark_100(questions, mark);
+            System.out.println("Вітаю! Ви завершили тест!\n" +
+                    "\nКількість правильних відповідей: " + mark + "\n" +
+                    "\nВаша оцінка: " + mark_100);
+    }
+
+    public List<String> getAnswers(List<Question> questions){
+        List<String> answers = new ArrayList<>();
         for (Question question : questions) {
             System.out.println(question.getQuestionText());
             System.out.println("----");
             String answer = Utils.askLine("Ваша відповідь:");
             System.out.println("----");
-            if (answer.trim().equalsIgnoreCase(question.getAnswer())) {
+            answers.add(answer);
+        }
+        return answers;
+    }
+
+    public int getMark(List<Question> questions, List<String> answers){
+        int mark = 0;
+        for (int i = 0; i < questions.size(); i++) {
+            if (answers.get(i).trim().equalsIgnoreCase(questions.get(i).getAnswer())) {
                 mark++;
             }
         }
-            mark100 = ((double) 100 /questions.size())*mark;
-            System.out.println("Вітаю! Ви завершили тест!\n" +
-                    "\nКількість правильних відповідей: " + mark + "\n" +
-                    "\nВаша оцінка: " + mark100);
+        return mark;
+    }
+
+    public double getMark_100(List<Question> questions, int correctAnswers){
+        return ((double) 100 /questions.size())*correctAnswers;
     }
 
 }
