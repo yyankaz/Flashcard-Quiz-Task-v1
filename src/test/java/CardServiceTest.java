@@ -47,23 +47,43 @@ public class CardServiceTest {
     @BeforeEach
     void setUp() {
         cardService = new CardService(questionDAO, boardDAO);
+
     }
+
+
 
     @Test
     void testAddCard() throws SQLException {
-        Deck deck = new Deck(1, "Test Deck");
+        boardDAO.createDeckDAO("Test Deck");
         try (Connection conn = DriverManager.getConnection(TEST_DB);
              Statement stmt = conn.createStatement()) {
-            stmt.execute("INSERT INTO boards (id, name) VALUES (1, 'Test Deck')");
+            stmt.execute("INSERT INTO boards (name) VALUES ('Test Deck')");
         }
 
-        questionDAO.addQuestion("2+2?", "4", deck);
+        questionDAO.addQuestion("2+2?", "4", boardDAO.getDeckByName("Test Deck"));
 
-        List<Question> questions = questionDAO.getQuestionsByBoardId(deck.getId());
+        List<Question> questions = questionDAO.getQuestionsByBoardId(boardDAO.getDeckByName("Test Deck").getId());
 
         assertEquals(1, questions.size());
         assertEquals("2+2?", questions.get(0).getQuestionText());
         assertEquals("4", questions.get(0).getAnswer());
+    }
+
+    @Test
+    void testDeleteById() throws SQLException {
+        boardDAO.createDeckDAO("Test Deck_2");
+        try (Connection conn = DriverManager.getConnection(TEST_DB);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute("INSERT INTO boards (name) VALUES ('Test Deck_2')");
+        }
+
+        questionDAO.addQuestion("2+3?", "5", boardDAO.getDeckByName("Test Deck_2"));
+
+        List<Question> questions = questionDAO.getQuestionsByBoardId(boardDAO.getDeckByName("Test Deck_2").getId());
+        assertFalse(questions.isEmpty());
+        questionDAO.deleteQuestion(questions.getFirst().getId());
+        List<Question> questionsAfter = questionDAO.getQuestionsByBoardId(boardDAO.getDeckByName("Test Deck_2").getId());
+        assertTrue(questionsAfter.isEmpty());
     }
 
 }
