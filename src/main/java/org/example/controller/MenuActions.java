@@ -21,7 +21,8 @@ public class MenuActions {
     }
 
     public void startQuiz() throws SQLException {
-        var deck = deckService.chooseDeck();
+        int deckID = deckService.chooseDeckId();
+        var deck = deckService.chooseDeck(deckID);
         quizService.study(deck);
     }
 
@@ -31,7 +32,8 @@ public class MenuActions {
         switch (answer) {
             case 1 -> deckService.createDeck();
             case 2 -> {
-                Deck deck = deckService.chooseDeck();
+                int deckID = deckService.chooseDeckId();
+                Deck deck = deckService.chooseDeck(deckID);
                 System.out.println("Колода обрана!");
                 deckService.chooseManageStep(deck);
             }

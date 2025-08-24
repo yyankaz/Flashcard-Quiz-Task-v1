@@ -1,10 +1,8 @@
 import org.example.database.BoardDAO;
 import org.example.database.QuestionDAO;
-import org.example.entity.Deck;
 import org.example.entity.Question;
 import org.example.service.CardService;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
@@ -16,8 +14,6 @@ public class CardServiceTest {
 
     private static QuestionDAO questionDAO;
     private static BoardDAO boardDAO;
-
-    private CardService cardService;
 
     static final String TEST_DB = "jdbc:sqlite:file:memdb1?mode=memory&cache=shared";
 
@@ -43,11 +39,6 @@ public class CardServiceTest {
 
         questionDAO = new QuestionDAO(TEST_DB);
         boardDAO = new BoardDAO(TEST_DB);
-    }
-    @BeforeEach
-    void setUp() {
-        cardService = new CardService(questionDAO, boardDAO);
-
     }
 
 

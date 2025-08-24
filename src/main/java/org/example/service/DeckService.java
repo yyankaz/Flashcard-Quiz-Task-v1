@@ -25,21 +25,23 @@ public class DeckService {
 
     }
 
-
-    public Deck chooseDeck(){
+    public int chooseDeckId(){
         var boards = boardDAO.getAllBoards();
         if (boards.isEmpty()) {
             System.out.println("Колод немає. Створіть спочатку колоду.");
-            return null;
+            return -1;
         }
         int i = 1;
         for (String b : boards) {
             System.out.println(i + ") " + b);
             i++;
         }
-        int answer = Utils.askInt(1, i - 1);
+        return Utils.askInt(1, i - 1);
+    }
 
-        String chosenName = boards.get(answer - 1);
+
+    public Deck chooseDeck(int deckID){
+        String chosenName = boardDAO.getAllBoards().get(deckID - 1);
         if (chosenName == null) {
             System.out.println("Вибрана колода не існує.");
             return null;
