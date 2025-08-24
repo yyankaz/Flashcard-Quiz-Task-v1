@@ -39,7 +39,6 @@ public class DeckService {
         return Utils.askInt(1, i - 1);
     }
 
-
     public Deck chooseDeck(int deckID){
         String chosenName = boardDAO.getAllBoards().get(deckID - 1);
         if (chosenName == null) {
@@ -50,8 +49,6 @@ public class DeckService {
         return boardDAO.getDeckByName(chosenName);
 
     }
-
-
 
     public void chooseManageStep(Deck deck) throws SQLException {
         System.out.println("Оберіть дію:");

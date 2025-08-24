@@ -14,7 +14,7 @@ public class Question {
     }
 
     public int getId() { return id; }
-    public int getBoardId() { return deckId; }
+    //public int getBoardId() { return deckId; }
     public String getQuestionText() { return text; }
     public String getAnswer() { return answer; }
 }

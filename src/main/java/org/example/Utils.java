@@ -1,6 +1,5 @@
 package org.example;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class Utils {
@@ -28,7 +27,6 @@ public class Utils {
             }
         }
     }
-
 
     public static int askInt(int min, int max) {
         while (true) {

@@ -5,7 +5,6 @@ import org.example.controller.MenuActions;
 import org.example.database.BoardDAO;
 import org.example.database.DBInitializer;
 import org.example.database.QuestionDAO;
-import org.example.entity.Question;
 import org.example.service.CardService;
 import org.example.service.DeckService;
 import org.example.service.QuizService;

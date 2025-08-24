@@ -5,7 +5,6 @@ import org.example.database.BoardDAO;
 import org.example.database.QuestionDAO;
 import org.example.entity.Deck;
 import org.example.entity.Question;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;

@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.Utils;
-
 import java.sql.SQLException;
 
 public class AppController {
