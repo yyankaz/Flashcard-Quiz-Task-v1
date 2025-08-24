@@ -21,6 +21,9 @@ public class CardServiceTest {
 
     static final String TEST_DB = "jdbc:sqlite:file:memdb1?mode=memory&cache=shared";
 
+    public CardServiceTest() throws SQLException {
+    }
+
     @BeforeAll
     static void setUpDatabase() throws SQLException {
         Connection conn = DriverManager.getConnection(TEST_DB);
@@ -41,7 +44,6 @@ public class CardServiceTest {
         questionDAO = new QuestionDAO(TEST_DB);
         boardDAO = new BoardDAO(TEST_DB);
     }
-
     @BeforeEach
     void setUp() {
         cardService = new CardService(questionDAO, boardDAO);
@@ -60,7 +62,9 @@ public class CardServiceTest {
         List<Question> questions = questionDAO.getQuestionsByBoardId(deck.getId());
 
         assertEquals(1, questions.size());
-        assertEquals("2+2?", questions.getFirst().getQuestionText());
-        assertEquals("4", questions.getFirst().getAnswer());
+        assertEquals("2+2?", questions.get(0).getQuestionText());
+        assertEquals("4", questions.get(0).getAnswer());
     }
+
 }
+

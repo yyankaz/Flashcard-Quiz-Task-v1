@@ -9,8 +9,6 @@ import java.util.List;
 
 public class QuestionDAO {
     private final String URL;
-    //= "jdbc:sqlite:quiz.db";
-
 
     public QuestionDAO(String URL) {
         this.URL = URL;

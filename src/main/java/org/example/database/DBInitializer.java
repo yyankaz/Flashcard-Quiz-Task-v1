@@ -6,8 +6,6 @@ import java.sql.Statement;
 
 public class DBInitializer {
 
-    private final String URL = "jdbc:sqlite:quiz.db";
-
     public static Connection connect(String URL) throws SQLException {
         return DriverManager.getConnection(URL);
     }
