@@ -7,12 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDAO {
-    private static final String URL = "jdbc:sqlite:quiz.db";
+    private final String URL;
+
+    public BoardDAO(String URL) {
+        this.URL = URL;
+    }
 
     public void createDeckDAO(String name) {
         String sql = "INSERT INTO boards(name) VALUES(?)";
 
-        try (Connection conn = DBInitializer.connect();
+        try (Connection conn = DBInitializer.connect(URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, name);
@@ -23,9 +27,9 @@ public class BoardDAO {
         }
     }
 
-    public static Deck getDeckById(int deckId) {
+    public Deck getDeckById(int deckId) {
         String sql = "SELECT id, name FROM boards WHERE id = ?";
-        try (Connection conn = DBInitializer.connect();
+        try (Connection conn = DBInitializer.connect(URL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, deckId);
@@ -40,10 +44,10 @@ public class BoardDAO {
         return null;
     }
 
-    public static Deck getDeckByName(String name) {
+    public Deck getDeckByName(String name) {
         String sql = "SELECT id, name FROM boards WHERE name = ?";
 
-        try (Connection conn = DBInitializer.connect();
+        try (Connection conn = DBInitializer.connect(URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, name);

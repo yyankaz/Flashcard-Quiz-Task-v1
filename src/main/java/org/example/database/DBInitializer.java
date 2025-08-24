@@ -6,13 +6,13 @@ import java.sql.Statement;
 
 public class DBInitializer {
 
-    private static final String URL = "jdbc:sqlite:quiz.db";
+    private final String URL = "jdbc:sqlite:quiz.db";
 
-    public static Connection connect() throws SQLException {
+    public static Connection connect(String URL) throws SQLException {
         return DriverManager.getConnection(URL);
     }
 
-    public static void initialize() {
+    public static void initialize(String URL) {
 
         try (Connection conn = DriverManager.getConnection(URL);
              Statement stmt = conn.createStatement()) {

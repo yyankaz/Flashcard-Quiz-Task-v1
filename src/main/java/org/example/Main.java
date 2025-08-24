@@ -13,12 +13,12 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        DBInitializer.initialize();
-        BoardDAO boardDAO = new BoardDAO();
-        QuestionDAO questionDAO = new QuestionDAO();
+        DBInitializer.initialize("jdbc:sqlite:quiz.db");
+        BoardDAO boardDAO = new BoardDAO("jdbc:sqlite:quiz.db");
+        QuestionDAO questionDAO = new QuestionDAO("jdbc:sqlite:quiz.db");
 
         QuizService quizService = new QuizService(questionDAO);
-        CardService cardService = new CardService(questionDAO);
+        CardService cardService = new CardService(questionDAO, boardDAO);
         DeckService deckService = new DeckService(boardDAO, cardService);
         MenuActions menuActions = new MenuActions(quizService, deckService, cardService);
 

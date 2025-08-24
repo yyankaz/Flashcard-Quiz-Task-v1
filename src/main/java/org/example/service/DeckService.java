@@ -45,7 +45,7 @@ public class DeckService {
             return null;
         }
 
-        return BoardDAO.getDeckByName(chosenName);
+        return boardDAO.getDeckByName(chosenName);
 
     }
 

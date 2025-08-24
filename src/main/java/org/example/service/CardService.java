@@ -13,9 +13,11 @@ import java.util.Objects;
 public class CardService {
 
     private final QuestionDAO questionDAO;
+    private final BoardDAO boardDAO;
 
-    public CardService(QuestionDAO questionDAO) {
+    public CardService(QuestionDAO questionDAO, BoardDAO boardDAO) {
         this.questionDAO = questionDAO;
+        this.boardDAO = boardDAO;
     }
 
     public void addCard() throws SQLException {
@@ -23,13 +25,13 @@ public class CardService {
         String rightAnswer = Utils.askLine("Будь ласка, введіть правильну відповідь на ваше запитання:");
         String deckName = Utils.askLine("Будь ласка, введіть назву колоди, до якої Ви хочете додати це запитання:");
 
-        Deck deck = BoardDAO.getDeckByName(deckName);
+        Deck deck = boardDAO.getDeckByName(deckName);
         if (deck == null) {
             System.out.println("Колода з назвою '" + deckName + "' не існує. Створіть її спочатку.");
             return;
         }
 
-        questionDAO.addQuestion(text, rightAnswer, Objects.requireNonNull(BoardDAO.getDeckByName(deckName)));
+        questionDAO.addQuestion(text, rightAnswer, Objects.requireNonNull(boardDAO.getDeckByName(deckName)));
     }
 
     public void addCardByDeck(Deck deck) throws SQLException {

@@ -8,12 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDAO {
-    private static final String URL = "jdbc:sqlite:quiz.db";
+    private final String URL;
+    //= "jdbc:sqlite:quiz.db";
+
+
+    public QuestionDAO(String URL) {
+        this.URL = URL;
+    }
 
     public void addQuestion(String text, String answer, Deck deck) throws SQLException {
         String sql = "INSERT INTO questions (text, answer, deck_id) VALUES (?, ?, ?)";
 
-        try (Connection conn = DBInitializer.connect();
+        try (Connection conn = DriverManager.getConnection(URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, text);
@@ -49,7 +55,7 @@ public class QuestionDAO {
         List<Question> questions = new ArrayList<>();
         String sql = "SELECT id, deck_id, text, answer FROM questions WHERE deck_id = ?";
 
-        try (Connection conn = DBInitializer.connect();
+        try (Connection conn = DBInitializer.connect(URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, deckId);
 
